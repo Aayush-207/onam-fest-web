@@ -5,10 +5,10 @@ const UnderDevelopment = () => {
         {/* Header */}
         <div className="mb-12 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4 sm:mb-6 font-heading">
-            More Features Coming Soon
+            Explore Onam
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto font-sans px-4">
-            We're working hard to bring you more amazing Onam experiences. Stay tuned for exciting updates!
+            Discover more ways to celebrate and experience the traditions of Onam with our curated selection.
           </p>
         </div>
 
@@ -46,19 +46,19 @@ const UnderDevelopment = () => {
             </div>
           </div>
 
-          {/* Memories Card */}
-          <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200">
-            <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-              <svg className="w-6 sm:w-8 h-6 sm:h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          {/* Shopping Card */}
+          <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer" onClick={() => window.location.href = '/shopping'}>
+            <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+              <svg className="w-6 sm:w-8 h-6 sm:h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7C16 5.895 15.657 5 14 5H2C.343 5 0 5.895 0 7v10c0 1.105.343 2 2 2h12c1.657 0 2-.895 2-2v-4" />
               </svg>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 sm:mb-3 font-heading">Memories</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 sm:mb-3 font-heading">Shopping</h3>
             <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 font-sans">
-              Share and relive precious Onam moments and experiences
+              Browse and purchase traditional Onam items and merchandise
             </p>
-            <div className="inline-flex items-center text-xs sm:text-sm font-medium">
-              <span className="bg-green-100 text-green-800 px-2 sm:px-3 py-1 rounded-full">In Development</span>
+            <div className="inline-flex items-center text-xs sm:text-sm text-blue-600 font-medium">
+              <span className="bg-blue-100 px-2 sm:px-3 py-1 rounded-full">Available</span>
             </div>
           </div>
         </div>

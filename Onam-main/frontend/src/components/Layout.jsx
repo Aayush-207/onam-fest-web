@@ -40,7 +40,7 @@ const Layout = () => {
   // Navigation handler for Navbar - smart scrolling based on context
   const scrollToSection = useCallback((sectionId) => {
     // Sections that are on the home page (scroll navigation)
-    const homePageSections = ['home', 'sadya', 'events', 'under-development']
+    const homePageSections = ['home', 'sadya', 'events', 'memories', 'under-development']
     
     // Sections that have separate pages (route navigation)
     const routeMap = {

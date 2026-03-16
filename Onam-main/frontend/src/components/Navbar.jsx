@@ -6,10 +6,9 @@ import OptimizedImage from './OptimizedImage'
 // Memoized navigation items - some are routes, some are scroll sections
 const navItems = [
   { id: 'home', label: 'Home', path: '/', type: 'scroll' },
-  { id: 'shopping', label: 'Shopping', path: '/shopping', type: 'route' },
   { id: 'sadya', label: 'Sadya', path: '/sadya', type: 'scroll' },
   { id: 'events', label: 'Events', path: '/events', type: 'scroll' },
-  { id: 'under-development', label: 'Coming Soon', path: '/coming-soon', type: 'route' }
+  { id: 'memories', label: 'Memories', path: '/memories', type: 'scroll' }
 ]
 
 // Memoized NavItem component - handles both scroll and route navigation
@@ -144,7 +143,7 @@ const Navbar = ({ currentSection, scrollToSection }) => {
     if (location.pathname !== '/') return
     
     const scrollPosition = window.scrollY + 200
-    const sections = ['home', 'sadya', 'events', 'under-development']
+    const sections = ['home', 'sadya', 'events', 'memories', 'under-development']
     
     for (let i = sections.length - 1; i >= 0; i--) {
       const element = document.getElementById(sections[i])

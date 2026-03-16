@@ -5,6 +5,7 @@ import { SectionSkeleton } from '../components/SkeletonLoader'
 const VideoSection = lazy(() => import('../components/VideoSection'))
 const Sadya = lazy(() => import('../components/Sadya'))
 const Events = lazy(() => import('../components/Events'))
+const Memories = lazy(() => import('../components/Memories'))
 const UnderDevelopment = lazy(() => import('../components/UnderDevelopment'))
 
 const Home = () => {
@@ -19,6 +20,9 @@ const Home = () => {
       </Suspense>
       <Suspense fallback={<SectionSkeleton type="events" />}>
         <Events />
+      </Suspense>
+      <Suspense fallback={<SectionSkeleton />}>
+        <Memories />
       </Suspense>
       <Suspense fallback={<SectionSkeleton />}>
         <UnderDevelopment />

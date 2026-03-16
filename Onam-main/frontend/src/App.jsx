@@ -39,6 +39,7 @@ const Shopping = lazy(() => import('./pages/Shopping'))
 const Cart = lazy(() => import('./pages/Cart'))
 const Checkout = lazy(() => import('./pages/Checkout'))
 const ComingSoon = lazy(() => import('./pages/ComingSoon'))
+const Rituals = lazy(() => import('./pages/Rituals'))
 
 function App() {
   return (
@@ -83,6 +84,14 @@ function App() {
             element={
               <Suspense fallback={<PageSkeleton />}>
                 <ComingSoon />
+              </Suspense>
+            } 
+          />
+          <Route 
+            path="rituals" 
+            element={
+              <Suspense fallback={<PageSkeleton />}>
+                <Rituals />
               </Suspense>
             } 
           />

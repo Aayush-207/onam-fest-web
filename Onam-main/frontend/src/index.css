@@ -1,0 +1,748 @@
+/* Fonts are loaded asynchronously via index.html to avoid render blocking */
+/* Removed @import to prevent render-blocking CSS */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Root element - ensure it can scroll */
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Account for fixed navbar */
+    /* Optimize for performance */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Prevent scroll position flash on route change */
+  html.route-changing {
+    scroll-behavior: auto !important;
+  }
+  
+  body {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    /* Prevent layout shift */
+    line-height: 1.6;
+    /* Prevent text size adjustment on iOS */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Ensure body can scroll */
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Custom text selection colors - Onam themed with better contrast */
+  ::selection {
+    background-color: #B45309; /* darker gold for better contrast */
+    color: #ffffff; /* white text */
+  }
+  
+  ::-moz-selection {
+    background-color: #B45309; /* darker gold for Firefox */
+    color: #ffffff; /* white text */
+  }
+
+  /* Optimized font loading to prevent FOUT */
+  .font-ornate {
+    font-family: 'Great Vibes', 'Brush Script MT', cursive, serif;
+    font-display: swap;
+    font-feature-settings: "liga" 1, "kern" 1;
+  }
+
+  .font-malayalam {
+    font-family: 'Noto Serif Malayalam', 'Noto Sans Malayalam', 'Malayalam Sangam MN', serif;
+    font-display: swap;
+    font-feature-settings: "liga" 1, "kern" 1;
+  }
+
+  .font-heading {
+    font-family: 'Prata', Georgia, serif;
+    font-display: swap;
+    font-feature-settings: "liga" 1, "kern" 1;
+  }
+
+  .font-sans {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-display: swap;
+    font-feature-settings: "liga" 1, "kern" 1;
+  }
+
+  /* Performance optimizations */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Optimize images and videos */
+  img, video {
+    max-width: 100%;
+    height: auto;
+    /* Prevent layout shift */
+    aspect-ratio: attr(width) / attr(height);
+  }
+  
+  /* Ensure all media is responsive */
+  img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+  }
+  
+  video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  /* Prevent horizontal scroll only */
+  html {
+    overflow-x: hidden;
+    overflow-y: auto; /* Explicitly allow vertical scroll */
+    width: 100%;
+  }
+  
+  body {
+    overflow-x: hidden;
+    overflow-y: auto; /* Explicitly allow vertical scroll */
+    width: 100%;
+    min-height: 100vh;
+    /* Prevent text selection causing zoom on mobile */
+    -webkit-tap-highlight-color: transparent;
+    /* Prevent pull-to-refresh on mobile */
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: auto;
+    /* Ensure smooth scrolling works properly */
+    scroll-behavior: smooth;
+  }
+  
+  /* Prevent double-tap zoom on buttons and links */
+  button, a {
+    touch-action: manipulation;
+  }
+  
+  /* Prevent any element from causing horizontal scroll */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  @media (min-width: 640px) {
+    .container, .max-w-7xl, .max-w-6xl, .max-w-4xl {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container, .max-w-7xl, .max-w-6xl, .max-w-4xl {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+
+  /* Optimize animations */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Mobile-first responsive base styles */
+  @media (max-width: 640px) {
+    html {
+      font-size: 14px; /* Slightly smaller base font for mobile */
+    }
+    
+    body {
+      line-height: 1.5; /* Tighter line height for mobile */
+    }
+  }
+
+  /* Tablet responsive adjustments */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    html {
+      font-size: 15px;
+    }
+  }
+
+  /* Desktop responsive adjustments */
+  @media (min-width: 1025px) {
+    html {
+      font-size: 16px;
+    }
+  }
+}
+
+@layer components {
+  /* Optimized button components with mobile-first approach */
+  .btn-primary {
+    @apply bg-onam-green hover:bg-green-700 text-white font-semibold py-2 sm:py-2.5 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl font-sans focus:outline-none focus:ring-2 focus:ring-onam-green focus:ring-offset-2 text-sm sm:text-base;
+  }
+  
+  .btn-secondary {
+    @apply bg-onam-gold hover:bg-amber-600 text-white font-semibold py-2 sm:py-2.5 px-4 sm:px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl font-sans focus:outline-none focus:ring-2 focus:ring-onam-gold focus:ring-offset-2 text-sm sm:text-base;
+  }
+  
+  /* Optimized section spacing with mobile-first approach */
+  .section-padding {
+    @apply py-12 sm:py-16 px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Enhanced card component with better performance and mobile responsiveness */
+  .card {
+    @apply bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 focus:outline-none focus:ring-2 focus:ring-onam-green focus:ring-offset-2;
+    /* Optimize for performance */
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
+  }
+  
+  /* Optimized gradient utilities */
+  .onam-gradient {
+    @apply bg-gradient-to-br from-onam-green via-onam-gold to-onam-red;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-onam-green via-onam-gold to-onam-red bg-clip-text text-transparent;
+  }
+  
+  /* Enhanced typography utilities with mobile-first approach */
+  .elegant-heading {
+    @apply font-elegant font-semibold tracking-wide text-2xl sm:text-3xl md:text-4xl;
+  }
+  
+  .decorative-text {
+    @apply font-decorative font-medium text-base sm:text-lg;
+  }
+  
+  .ornate-heading {
+    @apply font-ornate font-normal tracking-wide text-xl sm:text-2xl md:text-3xl;
+  }
+  
+  .script-text {
+    @apply font-script font-medium text-base sm:text-lg;
+  }
+  
+  /* Optimized golden text with better performance and mobile responsiveness */
+  .golden-text {
+    @apply text-yellow-400 drop-shadow-lg text-sm sm:text-base;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ornate-golden {
+    @apply font-ornate text-yellow-400 drop-shadow-lg text-lg sm:text-xl md:text-2xl;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .malayalam-elegant {
+    @apply font-malayalam font-semibold tracking-wide text-base sm:text-lg;
+  }
+  
+  .malayalam-modern {
+    @apply font-malayalam-sans font-medium text-sm sm:text-base;
+  }
+
+  /* Performance-optimized loading states with mobile responsiveness */
+  .loading-skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite;
+  }
+
+  /* Optimized focus states for accessibility */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-onam-green focus:ring-offset-2;
+  }
+
+  /* Performance-optimized hover effects with mobile considerations */
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+    will-change: transform, box-shadow;
+    
+    /* Disable hover effects on touch devices for better performance */
+    @media (hover: none) {
+      @apply hover:transform-none hover:shadow-lg;
+    }
+  }
+
+  /* Optimized backdrop blur for better performance */
+  .backdrop-blur-optimized {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  /* Mobile-first responsive grid utilities */
+  .responsive-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8;
+  }
+
+  .responsive-grid-2 {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8;
+  }
+
+  .responsive-grid-4 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6;
+  }
+
+  /* Mobile-first responsive text utilities */
+  .responsive-text-sm {
+    @apply text-xs sm:text-sm md:text-base;
+  }
+
+  .responsive-text-base {
+    @apply text-sm sm:text-base md:text-lg;
+  }
+
+  .responsive-text-lg {
+    @apply text-base sm:text-lg md:text-xl;
+  }
+
+  .responsive-text-xl {
+    @apply text-lg sm:text-xl md:text-2xl;
+  }
+
+  .responsive-text-2xl {
+    @apply text-xl sm:text-2xl md:text-3xl;
+  }
+
+  .responsive-text-3xl {
+    @apply text-2xl sm:text-3xl md:text-4xl;
+  }
+
+  .responsive-text-4xl {
+    @apply text-3xl sm:text-4xl md:text-5xl;
+  }
+
+  /* Mobile-first responsive spacing utilities */
+  .responsive-padding {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+
+  .responsive-margin {
+    @apply m-4 sm:m-6 lg:m-8;
+  }
+
+  .responsive-gap {
+    @apply gap-4 sm:gap-6 lg:gap-8;
+  }
+}
+
+@layer utilities {
+  /* Performance utilities */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  /* Accessibility utilities */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .focus-visible {
+    @apply focus:outline-none focus:ring-2 focus:ring-onam-green focus:ring-offset-2;
+  }
+
+  /* Animation utilities with mobile considerations */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+    
+    /* Reduce animation on mobile for better performance */
+    @media (max-width: 768px) {
+      animation: float 4s ease-in-out infinite;
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 2s infinite;
+  }
+
+  /* Custom keyframes for optimized animations */
+  @keyframes float {
+    0%, 100% { 
+      transform: translateY(0px) translateZ(0); 
+    }
+    50% { 
+      transform: translateY(-20px) translateZ(0); 
+    }
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { 
+      background-position: 0% 50%; 
+    }
+    50% { 
+      background-position: 100% 50%; 
+    }
+  }
+
+  @keyframes loading-shimmer {
+    0% { 
+      background-position: -200% 0; 
+    }
+    100% { 
+      background-position: 200% 0; 
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+  }
+
+  /* Remove borders from cart icon */
+  a[aria-label*="cart"] {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  a[aria-label*="cart"]:focus,
+  a[aria-label*="cart"]:active,
+  a[aria-label*="cart"]:visited {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Optimized scrollbar styling */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #059669 #f3f4f6;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #059669;
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #047857;
+  }
+
+  /* Mobile-first responsive utilities */
+  .mobile-only {
+    @apply block sm:hidden;
+  }
+
+  .desktop-only {
+    @apply hidden sm:block;
+  }
+
+  .tablet-up {
+    @apply hidden md:block;
+  }
+
+  .mobile-tablet {
+    @apply block lg:hidden;
+  }
+
+  /* Touch-friendly button sizing */
+  .touch-friendly {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Mobile-optimized spacing */
+  .mobile-safe {
+    @apply px-4 sm:px-6;
+  }
+
+  .mobile-safe-y {
+    @apply py-4 sm:py-6;
+  }
+}
+
+/* Skeleton loader shimmer animation */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Print styles for better accessibility */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    color: #000;
+    background: #fff;
+  }
+  
+  .card {
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+}
+
+/* Mobile-specific optimizations */
+@media (max-width: 640px) {
+  /* Base font size for mobile - prevents zoom */
+  html {
+    font-size: 16px;
+    overflow-y: auto !important; /* Force vertical scroll on mobile */
+  }
+  
+  body {
+    overflow-y: auto !important; /* Force vertical scroll on mobile */
+  }
+  
+  /* Reduce shadows on mobile for better performance */
+  .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .shadow-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  /* Optimize animations for mobile */
+  .animate-float {
+    animation-duration: 4s;
+  }
+  
+  /* Reduce backdrop blur on mobile for better performance */
+  .backdrop-blur-optimized {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  
+  /* Prevent horizontal overflow on mobile */
+  body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    width: 100%;
+    position: relative;
+  }
+  
+  /* Ensure all containers respect viewport width */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Fix table overflow on mobile */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+  
+  /* Ensure proper spacing on mobile */
+  .section-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  /* Prevent text from being too small */
+  p, span, div {
+    min-font-size: 14px;
+  }
+  
+  /* Ensure images don't overflow */
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Ensure proper spacing on tablets */
+  .section-padding {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1920px) {
+  /* Limit max width on very large screens */
+  .max-w-7xl {
+    max-width: 1280px;
+  }
+  
+  .max-w-6xl {
+    max-width: 1152px;
+  }
+  
+  .max-w-4xl {
+    max-width: 896px;
+  }
+}
+
+/* Landscape mobile optimizations */
+@media (max-width: 896px) and (orientation: landscape) {
+  /* Adjust hero section for landscape */
+  #home {
+    min-height: 100vh;
+    height: auto;
+  }
+  
+  /* Reduce padding in landscape */
+  .section-padding {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Remove hover effects on touch devices */
+  .hover\:shadow-xl:hover {
+    box-shadow: inherit;
+  }
+  
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+}
+
+/* Prevent zoom on input focus (iOS Safari) */
+/* All inputs must have font-size >= 16px to prevent auto-zoom */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+textarea,
+select {
+  font-size: 16px !important;
+  /* Prevent iOS Safari from zooming on focus */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Ensure form elements are properly sized on mobile */
+@media (max-width: 640px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  input[type="url"],
+  textarea,
+  select {
+    font-size: 16px !important;
+    padding: 12px 16px;
+    border-radius: 8px;
+    /* Prevent zoom on focus */
+    transform: scale(1);
+  }
+  
+  /* Ensure buttons are touch-friendly */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 24px;
+    font-size: 16px;
+    /* Prevent zoom on tap */
+    touch-action: manipulation;
+  }
+  
+  /* Prevent small text that might cause zoom */
+  .text-xs {
+    font-size: 14px !important;
+  }
+  
+  .text-sm {
+    font-size: 15px !important;
+  }
+  
+  /* Ensure links are touch-friendly */
+  a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Prevent text from being too small */
+  h1 { font-size: 1.75rem !important; }
+  h2 { font-size: 1.5rem !important; }
+  h3 { font-size: 1.25rem !important; }
+  h4 { font-size: 1.125rem !important; }
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .font-heading,
+  .font-ornate,
+  .font-malayalam {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

@@ -1,13 +1,32 @@
-import { memo } from 'react'
+import { memo, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 // Ritual Content Component
 const RitualContent = memo(({ title, description, details, imagePosition, imageSrc, index }) => {
   const isImageLeft = imagePosition === 'left'
+  const contentRef = useRef(null)
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const animationClass = isImageLeft ? 'animate-scroll-in-right' : 'animate-scroll-in-left'
+          entry.target.classList.add(animationClass)
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.1 })
+    
+    if (contentRef.current) {
+      observer.observe(contentRef.current)
+    }
+    
+    return () => observer.disconnect()
+  }, [isImageLeft])
   
   return (
     <div 
-      className="relative h-screen md:h-96 w-screen -ml-[calc(50vw-50%)] -mr-[calc(50vw-50%)] overflow-hidden"
+      className="relative h-screen md:h-96 w-full overflow-hidden bg-white"
       style={{
         animation: `slideUp 0.6s ease-out ${index * 0.2}s both`
       }}
@@ -20,28 +39,28 @@ const RitualContent = memo(({ title, description, details, imagePosition, imageS
           className="w-full h-full object-cover"
         />
         
-        {/* Fade Gradient Overlay - fades toward text side */}
+        {/* Fade Gradient Overlay - Black fade toward text side, gradually increasing */}
         <div 
           className="absolute inset-0"
           style={{
             background: isImageLeft 
-              ? 'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.7) 100%)'
-              : 'linear-gradient(to left, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.7) 100%)',
+              ? 'linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 15%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.85) 100%)'
+              : 'linear-gradient(to left, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 15%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.85) 100%)',
             pointerEvents: 'none'
           }}
         ></div>
       </div>
 
       {/* Content Overlay - Positioned on one side */}
-      <div className={`absolute inset-0 flex items-center ${isImageLeft ? 'justify-end' : 'justify-start'}`}>
-        <div className={`w-full md:w-1/2 px-6 md:px-12 py-8 md:py-0 ${isImageLeft ? 'md:pr-12' : 'md:pl-12'}`}>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 font-heading" style={{
+      <div ref={contentRef} className={`absolute inset-0 flex items-center ${isImageLeft ? 'justify-end' : 'justify-start'} opacity-0`}>
+        <div className={`w-1/2 px-8 md:px-12 py-8 md:py-0 ${isImageLeft ? '' : ''}`}>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-heading" style={{
             animation: `slideUp 0.6s ease-out ${index * 0.2 + 0.1}s both`
           }}>
             {title}
           </h2>
           
-          <p className="text-gray-700 text-lg md:text-xl font-semibold mb-6 leading-relaxed" style={{
+          <p className="text-white text-lg md:text-xl font-semibold mb-6 leading-relaxed" style={{
             animation: `slideUp 0.6s ease-out ${index * 0.2 + 0.2}s both`
           }}>
             {description}
@@ -57,8 +76,8 @@ const RitualContent = memo(({ title, description, details, imagePosition, imageS
                   animation: `fadeInLeft 0.5s ease-out ${index * 0.2 + 0.2 + idx * 0.1}s both`
                 }}
               >
-                <span className="text-onam-green text-2xl font-bold flex-shrink-0">✓</span>
-                <span className="text-gray-600 text-base md:text-lg leading-relaxed">{detail}</span>
+                <span className="text-white text-xl flex-shrink-0">🌸</span>
+                <span className="text-white text-base md:text-lg leading-relaxed">{detail}</span>
               </li>
             ))}
           </ul>
@@ -71,6 +90,25 @@ const RitualContent = memo(({ title, description, details, imagePosition, imageS
 RitualContent.displayName = 'RitualContent'
 
 const Rituals = () => {
+  const closingTextRef = useRef(null)
+  
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('fade-in-scroll')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.2 })
+    
+    if (closingTextRef.current) {
+      observer.observe(closingTextRef.current)
+    }
+    
+    return () => observer.disconnect()
+  }, [])
+  
   const rituals = [
     {
       title: 'Pookalam (Flower Rangoli)',
@@ -131,6 +169,28 @@ const Rituals = () => {
           }
         }
 
+        @keyframes slideInFromLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-100px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes slideInFromRight {
+          from {
+            opacity: 0;
+            transform: translateX(100px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
         @keyframes float {
           0%, 100% {
             transform: translateY(0px);
@@ -151,6 +211,27 @@ const Rituals = () => {
 
         .background-placeholder {
           animation: glow 3s ease-in-out infinite;
+        }
+
+        .animate-scroll-in-left {
+          animation: slideInFromLeft 0.7s ease-out forwards;
+        }
+
+        .animate-scroll-in-right {
+          animation: slideInFromRight 0.7s ease-out forwards;
+        }
+
+        @keyframes fadeInSlow {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        .fade-in-scroll {
+          animation: fadeInSlow 1.5s ease-out forwards;
         }
       `}</style>
 
@@ -205,8 +286,8 @@ const Rituals = () => {
       </section>
 
       {/* Rituals Section - Alternating Layout */}
-      <section className="relative py-12 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative w-screen -ml-[calc(50vw-50%)] -mr-[calc(50vw-50%)] overflow-x-hidden">
+        <div>
           {rituals.map((ritual, index) => (
             <RitualContent
               key={index}
@@ -221,14 +302,26 @@ const Rituals = () => {
         </div>
       </section>
 
-      {/* Closing Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-onam-green/10 via-onam-gold/20 to-onam-red/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl" style={{animation: 'slideUp 1s ease-out 0.6s both'}}>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 font-heading">
+      {/* Closing Section with Parallax */}
+      <section 
+        className="relative overflow-hidden"
+        style={{
+          backgroundImage: 'url(/exp.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        {/* Background Overlay */}
+        <div className="absolute inset-0 bg-black/40"></div>
+
+        {/* Content */}
+        <div ref={closingTextRef} className="section-padding relative z-10 flex items-center justify-center py-24 opacity-0">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">
               Experience the Spirit of Onam
             </h2>
-            <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
+            <p className="text-lg md:text-xl text-white/90 leading-relaxed">
               These rituals and traditions form the very essence of Onam, celebrating family, community, and the cultural heritage of Kerala. Each ritual connects us to our shared history and strengthens the bonds that hold our communities together.
             </p>
           </div>

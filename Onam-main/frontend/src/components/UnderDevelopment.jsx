@@ -16,25 +16,9 @@ const UnderDevelopment = () => {
         </div>
 
         {/* Development Status Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
-          {/* Festivals Card */}
-          <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200">
-            <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-              <svg className="w-6 sm:w-8 h-6 sm:h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <h3 className="text-lg sm:text-xl font-bold text-gray-800 mb-2 sm:mb-3 font-heading">Festivals</h3>
-            <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 font-sans">
-              Explore the rich tapestry of Kerala's festivals and celebrations
-            </p>
-            <div className="inline-flex items-center text-xs sm:text-sm text-purple-600 font-medium">
-              <span className="bg-purple-100 px-2 sm:px-3 py-1 rounded-full">In Development</span>
-            </div>
-          </div>
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {/* Rituals Card */}
-          <div onClick={() => navigate('/rituals')} className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer group">
+          <div onClick={() => navigate('/rituals')} className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer group card-auto-hover" style={{animation: 'cardHoverAnim 6s ease-in-out infinite'}}>
             <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
               <svg className="w-6 sm:w-8 h-6 sm:h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -50,8 +34,8 @@ const UnderDevelopment = () => {
           </div>
 
           {/* Shopping Card */}
-          <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 cursor-pointer" onClick={() => window.location.href = '/shopping'}>
-            <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+          <div className="bg-white rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer group card-auto-hover" style={{animation: 'cardHoverAnim 6s ease-in-out infinite 3s'}} onClick={() => window.location.href = '/shopping'}>
+            <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
               <svg className="w-6 sm:w-8 h-6 sm:h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7C16 5.895 15.657 5 14 5H2C.343 5 0 5.895 0 7v10c0 1.105.343 2 2 2h12c1.657 0 2-.895 2-2v-4" />
               </svg>
@@ -61,10 +45,47 @@ const UnderDevelopment = () => {
               Browse and purchase traditional Onam items and merchandise
             </p>
             <div className="inline-flex items-center text-xs sm:text-sm text-blue-600 font-medium">
-              <span className="bg-blue-100 px-2 sm:px-3 py-1 rounded-full">Available</span>
+              <span className="bg-blue-100 text-blue-800 px-2 sm:px-3 py-1 rounded-full group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">Available</span>
             </div>
           </div>
         </div>
+
+        {/* Styles for animations */}
+        <style>{`
+          @keyframes cardHoverAnim {
+            0%, 100% {
+              transform: scale(1);
+              box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+              border-color: rgb(229, 231, 235);
+            }
+            50% {
+              transform: scale(1.05);
+              box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 0 20px rgba(249, 115, 22, 0.3);
+              border-color: rgb(249, 115, 22);
+            }
+          }
+
+          @keyframes cardHoverAnimBlue {
+            0%, 100% {
+              transform: scale(1);
+              box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+              border-color: rgb(229, 231, 235);
+            }
+            50% {
+              transform: scale(1.05);
+              box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 0 20px rgba(37, 99, 235, 0.3);
+              border-color: rgb(37, 99, 235);
+            }
+          }
+          
+          .card-auto-hover:nth-child(1) {
+            animation: cardHoverAnim 6s ease-in-out infinite;
+          }
+          
+          .card-auto-hover:nth-child(2) {
+            animation: cardHoverAnimBlue 6s ease-in-out infinite 3s;
+          }
+        `}</style>
       </div>
     </section>
   )

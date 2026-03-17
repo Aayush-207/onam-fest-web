@@ -23,7 +23,7 @@ const Memories = () => {
   const memoryImages = useMemo(() => Array(6).fill(null), [])
 
   return (
-    <section id="memories" className="section-padding bg-gradient-to-br from-pink-50 to-purple-50" aria-label="Onam Memories">
+    <section id="memories" className="section-padding bg-gradient-to-br from-pink-50 to-purple-50" style={{backgroundImage: 'url(/Memories.jpg)', backgroundSize: 'cover', backgroundPosition: 'center'}} aria-label="Onam Memories">
       {/* Carousel Animation Styles */}
       <style>{`
         @keyframes scrollLeftToRight {
@@ -103,15 +103,7 @@ const Memories = () => {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center">
-          <button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-6 sm:px-8 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105">
-            Share Your Memory
-          </button>
-          <p className="text-gray-600 text-sm mt-4 px-4">
-            Join our community and share your favorite Onam moments with fellow celebrants
-          </p>
-        </div>
+
       </div>
     </section>
   )

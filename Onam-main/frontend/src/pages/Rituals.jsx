@@ -1,17 +1,17 @@
-import { memo, useEffect, useRef } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 // Ritual Content Component
 const RitualContent = memo(({ title, description, details, imagePosition, imageSrc, index }) => {
   const isImageLeft = imagePosition === 'left'
   const contentRef = useRef(null)
+  const [isVisible, setIsVisible] = useState(false)
   
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const animationClass = isImageLeft ? 'animate-scroll-in-right' : 'animate-scroll-in-left'
-          entry.target.classList.add(animationClass)
+          setIsVisible(true)
           observer.unobserve(entry.target)
         }
       })
@@ -22,12 +22,15 @@ const RitualContent = memo(({ title, description, details, imagePosition, imageS
     }
     
     return () => observer.disconnect()
-  }, [isImageLeft])
+  }, [])
   
   return (
     <div 
-      className="relative h-screen md:h-96 w-full overflow-hidden bg-white"
+      ref={contentRef}
+      className="relative h-screen md:h-96 w-full overflow-hidden bg-white transition-all duration-1000"
       style={{
+        opacity: isVisible ? 1 : 0.8,
+        transform: isVisible ? 'translateY(0)' : 'translateY(40px)',
         animation: `slideUp 0.6s ease-out ${index * 0.2}s both`
       }}
     >
@@ -52,7 +55,7 @@ const RitualContent = memo(({ title, description, details, imagePosition, imageS
       </div>
 
       {/* Content Overlay - Positioned on one side */}
-      <div ref={contentRef} className={`absolute inset-0 flex items-center ${isImageLeft ? 'justify-end' : 'justify-start'} opacity-0`}>
+      <div className={`absolute inset-0 flex items-center ${isImageLeft ? 'justify-end' : 'justify-start'} z-20`}>
         <div className={`w-1/2 px-8 md:px-12 py-8 md:py-0 ${isImageLeft ? '' : ''}`}>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-heading" style={{
             animation: `slideUp 0.6s ease-out ${index * 0.2 + 0.1}s both`
@@ -144,7 +147,7 @@ const Rituals = () => {
   ]
 
   return (
-    <div className="min-h-screen overflow-hidden">
+    <div className="min-h-screen bg-white">
       {/* Background with Image Placeholder */}
       <style>{`
         @keyframes slideUp {
@@ -188,6 +191,17 @@ const Rituals = () => {
           to {
             opacity: 1;
             transform: translateX(0);
+          }
+        }
+
+        @keyframes parallaxReveal {
+          from {
+            opacity: 0.5;
+            transform: translateY(60px) scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
           }
         }
 
@@ -236,7 +250,7 @@ const Rituals = () => {
       `}</style>
 
       {/* Back Button */}
-      <div className="fixed top-6 left-4 z-40">
+      <div className="fixed top-6 left-4 z-50">
         <Link 
           to="/"
           className="flex items-center space-x-2 text-gray-700 hover:text-onam-green transition-all duration-300 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg hover:shadow-xl hover:scale-110"
@@ -248,8 +262,8 @@ const Rituals = () => {
         </Link>
       </div>
 
-      {/* Hero Section - Full Screen */}
-      <section className="relative h-screen w-full flex flex-col items-center justify-center px-4 overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative w-full h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
         {/* Background Video */}
         <video 
           className="absolute inset-0 w-full h-full object-cover"
@@ -287,8 +301,8 @@ const Rituals = () => {
         </div>
       </section>
 
-      {/* Rituals Section - Alternating Layout */}
-      <section className="relative w-screen -ml-[calc(50vw-50%)] -mr-[calc(50vw-50%)] overflow-x-hidden">
+      {/* Rituals Section */}
+      <section className="relative w-full bg-white">
         <div>
           {rituals.map((ritual, index) => (
             <RitualContent
@@ -306,19 +320,20 @@ const Rituals = () => {
 
       {/* Closing Section with Parallax */}
       <section 
-        className="relative overflow-hidden"
+        className="relative overflow-hidden bg-cover bg-center bg-fixed"
         style={{
           backgroundImage: 'url(/exp.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
+          backgroundAttachment: 'fixed',
+          minHeight: '500px'
         }}
       >
         {/* Background Overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="absolute inset-0 bg-black/50"></div>
 
         {/* Content */}
-        <div ref={closingTextRef} className="section-padding relative z-10 flex items-center justify-center py-24 opacity-0">
+        <div ref={closingTextRef} className="section-padding relative z-10 flex items-center justify-center py-32">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">
               Experience the Spirit of Onam

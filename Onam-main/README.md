@@ -93,7 +93,7 @@ npm run dev
 
 ## 📂 Project Structure
 
-```
+``` 
 Onam-main/
 ├── backend/
 │   ├── config/          # Database & app config

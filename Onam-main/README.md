@@ -30,6 +30,10 @@
 **Backend** → Node.js 18+ | Express.js 4 | MongoDB | Mongoose 8  
 **Deployment** → Netlify (Frontend) | Render/Vercel/Railway (Backend)
 
+### Architecture Overview
+- **Frontend** = Display & UI only
+- **Backend** = Handles payments, orders, emails, and stores data
+
 ---
 
 ## 📋 Quick Start

@@ -9,6 +9,8 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-Latest-47A248?style=flat-square&logo=mongodb)](https://www.mongodb.com)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=flat-square&logo=tailwindcss)](https://tailwindcss.com)
 
+### 🌐 [Live Demo: https://onamfest.netlify.app/](https://onamfest.netlify.app/)
+
 </div>
 
 ---

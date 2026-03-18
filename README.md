@@ -9,8 +9,8 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-Latest-47A248?style=for-the-badge&logo=mongodb)](https://www.mongodb.com)
 [![Tailwind](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=for-the-badge&logo=tailwindcss)](https://tailwindcss.com)
 
-### 🌐 [Live Demo →](https://onamfest.netlify.app/)
-
+### 🌐 [Live Demo](https://onamfest.netlify.app/)
+**Built with ❤️ for Onam Festival at MIT ADT University**
 </div>
 
 ---
@@ -158,7 +158,7 @@ Onam/
 └── README.md                  # This file
 ```
 
-
+---
 
 
 ## 🔒 Security
@@ -177,4 +177,3 @@ Onam/
 
 ---
 
-**Built with ❤️ for Onam Festival at MIT ADT University**
